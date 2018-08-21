@@ -79,6 +79,15 @@
         app:layout_constraintTop_toBottomOf="@id/btnTimer" />
 
     <Button
+        android:id="@+id/btnCombineLatest"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="combineLatest"
+        app:layout_constraintEnd_toStartOf="@id/btnFilter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnZip" />
+
+    <Button
         android:id="@+id/btnReduce"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -149,5 +158,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnJust"
         app:layout_constraintTop_toBottomOf="@id/btnTimer" />
+
+
 
 </android.support.constraint.ConstraintLayout>

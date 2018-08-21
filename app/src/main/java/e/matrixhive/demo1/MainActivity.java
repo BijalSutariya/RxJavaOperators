@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button concat = findViewById(R.id.btnConcat);
         Button replay = findViewById(R.id.btnReplay);
         Button switchMap = findViewById(R.id.btnSwitchMap);
+        Button combineLatest = findViewById(R.id.btnCombineLatest);
 
         create.setOnClickListener(this);
         differ.setOnClickListener(this);
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         concat.setOnClickListener(this);
         replay.setOnClickListener(this);
         switchMap.setOnClickListener(this);
+        combineLatest.setOnClickListener(this);
     }
 
 
@@ -123,6 +125,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnSwitchMap:
                 switchMapObservable();
+                break;
+            case R.id.btnCombineLatest:
+                combineLatestObservable();
                 break;
         }
     }
@@ -586,7 +591,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         observable.switchMap(new Function<Integer, ObservableSource<String>>() {
             @Override
-            public ObservableSource<String> apply(Integer integer) throws Exception {
+            public ObservableSource<String> apply(Integer integer) {
                 int delay = new Random().nextInt(1);
                 return Observable.just(integer.toString())
                         .delay(delay, TimeUnit.SECONDS, Schedulers.io());
@@ -596,5 +601,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
+    }
+
+    /**
+     * combineLatestObservable : combine the latest item emitted by each Observable via a specified function
+     */
+    private void combineLatestObservable() {
+        Observable<Long> newsRefreshes = Observable.interval(2, TimeUnit.SECONDS).take(15);
+        Observable<Long> weatherRefreshes = Observable.interval(5, TimeUnit.SECONDS).take(20);
+        Observable.combineLatest(newsRefreshes, weatherRefreshes, new BiFunction<Long, Long, Object>() {
+            @Override
+            public Object apply(Long aLong, Long aLong2) throws Exception {
+                Log.d("TAG", "apply: "+aLong + " " + aLong2);
+                return aLong + " " + aLong2;
+            }
+        }).subscribe();
+
     }
 }
