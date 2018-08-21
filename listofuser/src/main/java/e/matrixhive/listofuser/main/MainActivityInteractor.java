@@ -16,13 +16,13 @@ public class MainActivityInteractor implements MainActivityContract.interactor {
                 if (response.body() != null && response.isSuccessful()) {
                     loginFinishedListener.getUserData(response.body());
                 } else {
-                    loginFinishedListener.getErrorMsg("Problem Create user !! Try again later.");
+                    loginFinishedListener.getErrorMsg("Try again later.");
                 }
             }
 
             @Override
             public void onFailure(Call<MainModel> call, Throwable t) {
-                loginFinishedListener.getErrorMsg("Problem Create user !! Try again later.");
+                loginFinishedListener.getErrorMsg("Try again later.");
             }
         });
     }
