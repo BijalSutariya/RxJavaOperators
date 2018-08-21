@@ -6,18 +6,26 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.List;
+import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Maybe;
+import io.reactivex.MaybeObserver;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
+import io.reactivex.observables.ConnectableObservable;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -37,6 +45,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button interval = findViewById(R.id.btnInterval);
         Button timer = findViewById(R.id.btnTimer);
         Button zip = findViewById(R.id.btnZip);
+        Button reduce = findViewById(R.id.btnReduce);
+        Button filter = findViewById(R.id.btnFilter);
+        Button buffer = findViewById(R.id.btnBuffer);
+        Button skip = findViewById(R.id.btnSkip);
+        Button merge = findViewById(R.id.btnMerge);
+        Button concat = findViewById(R.id.btnConcat);
+        Button replay = findViewById(R.id.btnReplay);
+        Button switchMap = findViewById(R.id.btnSwitchMap);
 
         create.setOnClickListener(this);
         differ.setOnClickListener(this);
@@ -46,6 +62,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         interval.setOnClickListener(this);
         timer.setOnClickListener(this);
         zip.setOnClickListener(this);
+        reduce.setOnClickListener(this);
+        filter.setOnClickListener(this);
+        buffer.setOnClickListener(this);
+        skip.setOnClickListener(this);
+        merge.setOnClickListener(this);
+        concat.setOnClickListener(this);
+        replay.setOnClickListener(this);
+        switchMap.setOnClickListener(this);
     }
 
 
@@ -75,6 +99,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnZip:
                 zipObservable();
+                break;
+            case R.id.btnReduce:
+                reduceObservable();
+                break;
+            case R.id.btnFilter:
+                filterObservacble();
+                break;
+            case R.id.btnBuffer:
+                bufferObservable();
+                break;
+            case R.id.btnSkip:
+                skipObservable();
+                break;
+            case R.id.btnMerge:
+                mergeObservable();
+                break;
+            case R.id.btnConcat:
+                concatObservable();
+                break;
+            case R.id.btnReplay:
+                replayObservable();
+                break;
+            case R.id.btnSwitchMap:
+                switchMapObservable();
                 break;
         }
     }
@@ -280,4 +328,273 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    /**
+     * reduceObservable : apply a function to each item emitted by an Observable sequentially and emit the final value
+     */
+    private void reduceObservable() {
+        Maybe<Integer> reduce = Observable.just(0, 1, 2, 3, 4).reduce(new BiFunction<Integer, Integer, Integer>() {
+            @Override
+            public Integer apply(Integer t1, Integer t2) {
+                return t1 + t2;
+            }
+        });
+
+        MaybeObserver<Integer> observer = new MaybeObserver<Integer>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onSuccess(Integer integer) {
+                Log.d("TAG", "onSuccess: " + integer);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e("TAG", "onError: " + e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d("TAG", "onComplete: ");
+            }
+        };
+
+        reduce.subscribe(observer);
+    }
+
+    /**
+     * filterObservacble : emit only those items from an Observable that pass a predicate test
+     */
+    private void filterObservacble() {
+        Observable<Integer> observable = Observable.just(1, 2, 3, 4, 5, 6).filter(new Predicate<Integer>() {
+            @Override
+            public boolean test(Integer integer) {
+                return integer % 2 == 0;
+            }
+        });
+
+        Observer<Integer> observer = new Observer<Integer>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                Log.d("TAG", "onSubscribe: " + d.isDisposed());
+            }
+
+            @Override
+            public void onNext(Integer integer) {
+                Log.d("TAG", "onNext: " + integer);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d("TAG", "onError: " + e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d("TAG", "onComplete: ");
+            }
+        };
+        observable.subscribe(observer);
+    }
+
+    /**
+     * bufferObservable : emited value store in buffer and get this bundle rather then single value at atime
+     */
+    private void bufferObservable() {
+        Observable<List<String>> observable = Observable.just("A", "B", "C", "D", "E").buffer(3000, TimeUnit.SECONDS);
+
+        Observer<List<String>> observer = new Observer<List<String>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                Log.d("TAG", "onSubscribe: " + d.isDisposed());
+            }
+
+            @Override
+            public void onNext(List<String> strings) {
+                Log.d("TAG", "onNext: " + strings);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d("TAG", "onError: " + e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d("TAG", "onComplete: ");
+            }
+        };
+        observable.subscribe(observer);
+    }
+
+    /**
+     * skipObservable : skip the first n items
+     */
+    private void skipObservable() {
+        Observable<String> observable = Observable.just("A", "B", "C", "D", "E").skip(2);
+
+        Observer<String> observer = new Observer<String>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                Log.d("TAG", "onSubscribe: " + d.isDisposed());
+            }
+
+            @Override
+            public void onNext(String s) {
+                Log.d("TAG", "onNext: " + s);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d("TAG", "onError: " + e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d("TAG", "onComplete: ");
+            }
+        };
+        observable.subscribe(observer);
+    }
+
+    /**
+     * mergeObservable : combine multiple observables
+     */
+    private void mergeObservable() {
+        Observable<String> aObservable = Observable.fromArray("A1", "A2", "A3", "A4");
+        Observable<String> bObservable = Observable.fromArray("B1", "B2", "B3");
+
+        Observer<String> observer = new Observer<String>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                Log.d("TAG", "onSubscribe: " + d.isDisposed());
+            }
+
+            @Override
+            public void onNext(String s) {
+                Log.d("TAG", "onNext: " + s);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d("TAG", "onError: " + e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d("TAG", "onComplete: ");
+            }
+        };
+        Observable.merge(aObservable, bObservable).subscribe(observer);
+    }
+
+    /**
+     * concatObservable : concat the value
+     */
+    private void concatObservable() {
+        Observable<String> aObservable = Observable.fromArray("A1", "A2", "A3", "A4");
+        Observable<String> bObservable = Observable.fromArray("B1", "B2", "B3");
+
+        Observer<String> observer = new Observer<String>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                Log.d("TAG", "onSubscribe: " + d.isDisposed());
+            }
+
+            @Override
+            public void onNext(String s) {
+                Log.d("TAG", "onNext: " + s);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d("TAG", "onError: " + e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d("TAG", "onComplete: ");
+            }
+        };
+
+        Observable.concat(aObservable, bObservable).subscribe(observer);
+    }
+
+    /**
+     * replayObservable : replay ensure that all observers see the same sequence
+     */
+    private void replayObservable() {
+        Observable<Integer> observable = Observable.just(1, 2, 3, 4, 5);
+        ConnectableObservable<Integer> replay = observable.replay(3);
+        replay.connect(); //connecting connectableObservable
+
+        Observer<Integer> observer = new Observer<Integer>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                Log.d("TAG", "onSubscribe: " + d.isDisposed());
+            }
+
+            @Override
+            public void onNext(Integer integer) {
+                Log.d("TAG", "onNext: " + integer);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d("TAG", "onError: " + e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d("TAG", "onComplete: ");
+            }
+        };
+        replay.subscribe(observer);
+
+
+    }
+
+    /**
+     * switchMapObservable : transform the item emitted by observable into observable && mirror most recenty transformed emite item
+     */
+    private void switchMapObservable() {
+        Observable<Integer> observable = Observable.just(1, 2, 3, 4, 5, 6);
+
+        Observer<String> observer = new Observer<String>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                Log.d("TAG", "onSubscribe: " + d.isDisposed());
+            }
+
+            @Override
+            public void onNext(String string) {
+                Log.d("TAG", "onNext: " + string);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d("TAG", "onError: " + e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d("TAG", "onComplete: ");
+            }
+        };
+
+        observable.switchMap(new Function<Integer, ObservableSource<String>>() {
+            @Override
+            public ObservableSource<String> apply(Integer integer) throws Exception {
+                int delay = new Random().nextInt(1);
+                return Observable.just(integer.toString())
+                        .delay(delay, TimeUnit.SECONDS, Schedulers.io());
+
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
 }

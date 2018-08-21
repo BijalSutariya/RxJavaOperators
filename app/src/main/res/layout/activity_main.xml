@@ -8,76 +8,146 @@
 
     <Button
         android:id="@+id/btnCreate"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Create"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnReduce"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnDefer"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="differ"
-        app:layout_constraintTop_toBottomOf="@id/btnCreate"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/btnFilter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnCreate" />
 
     <Button
         android:id="@+id/btnJust"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="just"
-        app:layout_constraintTop_toBottomOf="@id/btnDefer"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/btnFilter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnDefer" />
 
     <Button
         android:id="@+id/btnMap"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="map"
-        app:layout_constraintTop_toBottomOf="@id/btnJust"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/btnFilter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnJust" />
 
     <Button
         android:id="@+id/btnFlatMap"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="flatMap"
-        app:layout_constraintTop_toBottomOf="@id/btnMap"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintEnd_toStartOf="@id/btnFilter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnMap" />
 
     <Button
         android:id="@+id/btnInterval"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Interval"
-        app:layout_constraintTop_toBottomOf="@id/btnFlatMap"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintEnd_toStartOf="@id/btnFilter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnFlatMap" />
 
     <Button
         android:id="@+id/btnTimer"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Timer"
-        app:layout_constraintTop_toBottomOf="@id/btnInterval"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/btnFilter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnInterval" />
 
     <Button
         android:id="@+id/btnZip"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="zip"
-        app:layout_constraintTop_toBottomOf="@id/btnTimer"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/btnFilter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnTimer" />
 
+    <Button
+        android:id="@+id/btnReduce"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Reduce"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnCreate"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/btnFilter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Filter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnDefer"
+        app:layout_constraintTop_toBottomOf="@id/btnCreate" />
+
+    <Button
+        android:id="@+id/btnBuffer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="buffer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnJust"
+        app:layout_constraintTop_toBottomOf="@id/btnDefer" />
+
+    <Button
+        android:id="@+id/btnSkip"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="skip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnJust"
+        app:layout_constraintTop_toBottomOf="@id/btnJust" />
+
+    <Button
+        android:id="@+id/btnMerge"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="merge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnJust"
+        app:layout_constraintTop_toBottomOf="@id/btnMap" />
+
+    <Button
+        android:id="@+id/btnConcat"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="concat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnJust"
+        app:layout_constraintTop_toBottomOf="@id/btnFlatMap"/>
+
+    <Button
+        android:id="@+id/btnReplay"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="replay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnJust"
+        app:layout_constraintTop_toBottomOf="@id/btnInterval" />
+
+    <Button
+        android:id="@+id/btnSwitchMap"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="SwitchMap"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnJust"
+        app:layout_constraintTop_toBottomOf="@id/btnTimer" />
 
 </android.support.constraint.ConstraintLayout>
