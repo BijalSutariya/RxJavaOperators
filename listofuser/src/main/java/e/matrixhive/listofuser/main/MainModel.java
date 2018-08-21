@@ -71,6 +71,13 @@ public class MainModel {
         private String last_name;
         private String avatar;
 
+        public DataBean(int id, String first_name, String last_name, String avatar) {
+            this.id = id;
+            this.first_name = first_name;
+            this.last_name = last_name;
+            this.avatar = avatar;
+        }
+
         public int getId() {
             return id;
         }
@@ -112,5 +119,16 @@ public class MainModel {
                     ", avatar='" + avatar + '\'' +
                     '}';
         }
+    }
+
+    @Override
+    public String toString() {
+        return "MainModel{" +
+                "page=" + page +
+                ", per_page=" + per_page +
+                ", total=" + total +
+                ", total_pages=" + total_pages +
+                ", data=" + data +
+                '}';
     }
 }

@@ -15,6 +15,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private MainActivityPresenter presenter;
     private ProgressBar progressBar;
     private View view;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,13 +34,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.listUser:
-                displayUserList();
+                presenter.setOnButtonClick();
                 break;
         }
-    }
-
-    private void displayUserList() {
-        presenter.setOnButtonClick();
     }
 
     @Override

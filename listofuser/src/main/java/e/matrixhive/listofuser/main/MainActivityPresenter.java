@@ -5,6 +5,8 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import e.matrixhive.listofuser.utils.Listener;
+
 import static android.content.ContentValues.TAG;
 
 public class MainActivityPresenter implements MainActivityContract.presenter {
@@ -19,21 +21,19 @@ public class MainActivityPresenter implements MainActivityContract.presenter {
     @Override
     public void setOnButtonClick() {
         mView.showProgress();
-        mInteractor.login(new MainActivityContract.interactor.IOnLoginFinishedListener() {
+        mInteractor.login(new Listener<MainModel>(){
+
             @Override
-            public void getUserData(MainModel user) {
-                mView.hideProgress();
-                List<MainModel.DataBean> list = new ArrayList<>(user.getData());
-                Log.d("success", "" + list.toString());
+            public void onError(Throwable e) {
+            mView.showErrorMsg(e.getMessage());
             }
 
             @Override
-            public void getErrorMsg(String errorMsg) {
-                mView.hideProgress();
-                mView.showErrorMsg("Try again later.");
-                Log.d(TAG, "getErrorMsg: ");
+            public void onNext(MainModel e) {
+
             }
         });
+
 
     }
 }

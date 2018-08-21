@@ -1,5 +1,7 @@
 package e.matrixhive.listofuser.main;
 
+import e.matrixhive.listofuser.utils.Listener;
+
 public interface MainActivityContract {
 
     interface view {
@@ -12,18 +14,13 @@ public interface MainActivityContract {
     }
 
     interface interactor {
-        void login(IOnLoginFinishedListener loginFinishedListener);
-
-        interface IOnLoginFinishedListener {
-
-            void getUserData(MainModel user);
-
-            void getErrorMsg(String errorMsg);
-        }
+        void login(Listener<MainModel> model);
     }
 
     interface presenter {
 
         void setOnButtonClick();
+
+        // void displayUserList();
     }
 }
