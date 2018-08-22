@@ -438,7 +438,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * skipObservable : skip the first n items
      */
     private void skipObservable() {
-        Observable<String> observable = Observable.just("A", "B", "C", "D", "E").skip(2);
+        Observable<String> observable = Observable.just("A", "B", "C", "D", "E").skip(1);
 
         Observer<String> observer = new Observer<String>() {
             @Override
