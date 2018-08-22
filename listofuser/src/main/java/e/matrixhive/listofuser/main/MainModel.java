@@ -3,132 +3,50 @@ package e.matrixhive.listofuser.main;
 import java.util.List;
 
 public class MainModel {
+    private List<UsersModel> usersModel;
+    private List<PostsModel> postsModel;
+    private List<CommentsModel> commentsModel;
+    private List<AlbumsModel> albumsModel;
 
-    /**
-     * page : 1
-     * per_page : 3
-     * total : 12
-     * total_pages : 4
-     * data : [{"id":1,"first_name":"George","last_name":"Bluth","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg"},{"id":2,"first_name":"Janet","last_name":"Weaver","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/josephstein/128.jpg"},{"id":3,"first_name":"Emma","last_name":"Wong","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/olegpogodaev/128.jpg"}]
-     */
-
-    private int page;
-    private int per_page;
-    private int total;
-    private int total_pages;
-    private List<DataBean> data;
-
-    public int getPage() {
-        return page;
+    public List<UsersModel> getUsersModel() {
+        return usersModel;
     }
 
-    public void setPage(int page) {
-        this.page = page;
+    public void setUsersModel(List<UsersModel> usersModel) {
+        this.usersModel = usersModel;
     }
 
-    public int getPer_page() {
-        return per_page;
+    public List<PostsModel> getPostsModel() {
+        return postsModel;
     }
 
-    public void setPer_page(int per_page) {
-        this.per_page = per_page;
+    public void setPostsModel(List<PostsModel> postsModel) {
+        this.postsModel = postsModel;
     }
 
-    public int getTotal() {
-        return total;
+    public List<CommentsModel> getCommentsModel() {
+        return commentsModel;
     }
 
-    public void setTotal(int total) {
-        this.total = total;
+    public void setCommentsModel(List<CommentsModel> commentsModel) {
+        this.commentsModel = commentsModel;
     }
 
-    public int getTotal_pages() {
-        return total_pages;
+    public List<AlbumsModel> getAlbumsModel() {
+        return albumsModel;
     }
 
-    public void setTotal_pages(int total_pages) {
-        this.total_pages = total_pages;
-    }
-
-    public List<DataBean> getData() {
-        return data;
-    }
-
-    public void setData(List<DataBean> data) {
-        this.data = data;
-    }
-
-    public static class DataBean {
-        /**
-         * id : 1
-         * first_name : George
-         * last_name : Bluth
-         * avatar : https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg
-         */
-
-        private int id;
-        private String first_name;
-        private String last_name;
-        private String avatar;
-
-        public DataBean(int id, String first_name, String last_name, String avatar) {
-            this.id = id;
-            this.first_name = first_name;
-            this.last_name = last_name;
-            this.avatar = avatar;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getFirst_name() {
-            return first_name;
-        }
-
-        public void setFirst_name(String first_name) {
-            this.first_name = first_name;
-        }
-
-        public String getLast_name() {
-            return last_name;
-        }
-
-        public void setLast_name(String last_name) {
-            this.last_name = last_name;
-        }
-
-        public String getAvatar() {
-            return avatar;
-        }
-
-        public void setAvatar(String avatar) {
-            this.avatar = avatar;
-        }
-
-        @Override
-        public String toString() {
-            return "DataBean{" +
-                    "id=" + id +
-                    ", first_name='" + first_name + '\'' +
-                    ", last_name='" + last_name + '\'' +
-                    ", avatar='" + avatar + '\'' +
-                    '}';
-        }
+    public void setAlbumsModel(List<AlbumsModel> albumsModel) {
+        this.albumsModel = albumsModel;
     }
 
     @Override
     public String toString() {
         return "MainModel{" +
-                "page=" + page +
-                ", per_page=" + per_page +
-                ", total=" + total +
-                ", total_pages=" + total_pages +
-                ", data=" + data +
+                "usersModel=" + usersModel +
+                ", postsModel=" + postsModel +
+                ", commentsModel=" + commentsModel +
+                ", albumsModel=" + albumsModel +
                 '}';
     }
 }

@@ -1,12 +1,27 @@
 package e.matrixhive.listofuser.utils;
 
-import e.matrixhive.listofuser.main.MainModel;
+import java.util.List;
+
+import e.matrixhive.listofuser.main.AlbumsModel;
+import e.matrixhive.listofuser.main.CommentsModel;
+import e.matrixhive.listofuser.main.PostsModel;
+import e.matrixhive.listofuser.main.UsersModel;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
-import retrofit2.http.Query;
 
 public interface ApiInterface {
 
     @GET("users")
-    Observable<MainModel> getUserList(@Query("page") int page);
+    Observable<List<UsersModel>> getUserList();
+
+    @GET("posts")
+    Observable<List<PostsModel>> getPostList();
+
+    @GET("comments")
+    Observable<List<CommentsModel>> getCommentstList();
+
+    @GET("albums")
+    Observable<List<AlbumsModel>> getAlbumstList();
+
+
 }

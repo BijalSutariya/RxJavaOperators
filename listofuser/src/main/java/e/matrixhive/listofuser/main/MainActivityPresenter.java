@@ -2,9 +2,6 @@ package e.matrixhive.listofuser.main;
 
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import e.matrixhive.listofuser.utils.Listener;
 
 import static android.content.ContentValues.TAG;
@@ -21,16 +18,21 @@ public class MainActivityPresenter implements MainActivityContract.presenter {
     @Override
     public void setOnButtonClick() {
         mView.showProgress();
-        mInteractor.login(new Listener<MainModel>(){
+        mInteractor.usersList(new Listener<MainModel>() {
 
             @Override
             public void onError(Throwable e) {
-            mView.showErrorMsg(e.getMessage());
+                mView.showErrorMsg(e.getMessage());
+                Log.d(TAG, "onError: "+e.getMessage());
             }
 
             @Override
             public void onNext(MainModel e) {
-
+                mView.hideProgress();
+                Log.d(TAG, "onpost: "+e.getPostsModel());
+                Log.d(TAG, "onuser: "+e.getUsersModel());
+                Log.d(TAG, "oncomment: "+e.getCommentsModel());
+                Log.d(TAG, "onalbum: "+e.getAlbumsModel());
             }
         });
 

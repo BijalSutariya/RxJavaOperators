@@ -20,7 +20,7 @@ public class ApiClient {
 
     public static ApiInterface getRetrofit() {
         if (retrofit == null) {
-            String BASE_URL = "https://reqres.in/api/";
+            String BASE_URL = "https://jsonplaceholder.typicode.com/";
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .client(getClient())

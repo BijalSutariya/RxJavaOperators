@@ -3,7 +3,7 @@ package e.matrixhive.listofuser.utils;
 import io.reactivex.Observer;
 import io.reactivex.observers.DisposableObserver;
 
-public class Listener<T> extends DisposableObserver<T> implements Observer<T> {
+public abstract class Listener<T> extends DisposableObserver<T> implements Observer<T> {
 
 
     @Override
@@ -20,4 +20,5 @@ public class Listener<T> extends DisposableObserver<T> implements Observer<T> {
     public void onComplete() {
 
     }
+
 }

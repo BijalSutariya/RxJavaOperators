@@ -14,13 +14,15 @@ public interface MainActivityContract {
     }
 
     interface interactor {
-        void login(Listener<MainModel> model);
+
+        void usersList(Listener<MainModel> listener);
+
+
     }
 
     interface presenter {
 
         void setOnButtonClick();
 
-        // void displayUserList();
     }
 }
